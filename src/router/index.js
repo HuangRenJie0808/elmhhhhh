@@ -11,15 +11,26 @@ const routes = [
     component: Home
   },
   {
-    path: '/about',
+    path:'/login',
+    name: 'Login',
+    component:()=> import ("../views/Login.vue") // 登录页面
+  },
+  {
+    path:'/about',
     name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
+    component:()=> import ("../views/About.vue") // 成功页
+  },
+  {
+    path:'/detail',
+    name: 'Detail',
+    component:()=> import ("../views/Detail.vue") // 详情页
+  },
+  {
+    path: '/:id',
+    name: 'Home',
+    component: Home
+  },
 ]
-
 const router = new VueRouter({
   routes
 })
