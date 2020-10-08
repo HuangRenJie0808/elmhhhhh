@@ -34,7 +34,6 @@
     </ul>
     <!-- 全部清空 -->
     <h4 @click="arr=[]">全部清空</h4>
-
   </div>
 </template>
 
@@ -58,14 +57,11 @@ export default {
   },
   // 计算属性
   computed: {},
-  // 侦听器
+  // 侦听器,
   watch: {
-      arr:{
-          handler(val){
-              localStorage.setItem("arr",JSON.stringify(val))
-          },
-          deep:true
-      }
+    arr(newValue, oldValue) {
+      localStorage.setItem("arr",JSON.stringify(newValue))
+    }
   },
   // 组件方法
   methods: {
@@ -77,7 +73,6 @@ export default {
           this.value
       );
       this.detail = keyValue.data;
-      console.log(this.detail);
     },
     history(val) {
       let newArr = this.arr.some(item => {
@@ -91,9 +86,8 @@ export default {
           this.arr.unshift(val);
         
       }
-      console.log(this.arr);
-      this.detail = [];
-      
+      console.log(val)
+      this.$router.push("/index/shouye?geohash="+val.geohash)
     }
   },
   /**
@@ -103,8 +97,9 @@ export default {
   async mounted() {
     let url = "http://elm.cangdu.org/v1/cities/" + this.$route.query.id;
     let hot = await axios.get(url);
-    console.log(hot);
+    // console.log(hot);
     this.list = hot.data;
+    
   }
 };
 </script> 

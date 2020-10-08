@@ -26,7 +26,24 @@ const routes = [
     component:()=> import ("../views/Detail.vue") // 详情页
   },
   {
-    path: '/:id',
+    path:'/index',
+    name: 'Index',
+    component:()=> import ("../views/index/Index.vue"), // 详情首页
+      children: [
+          {
+            path:'shouye',
+            name: 'Shouye',
+            component:()=> import ("../views/index/Shouye.vue") // 详情首页的首页
+          },
+          {
+            path:'my',
+            name: 'My',
+            component:()=> import ("../views/index/My.vue") // 详情首页的我的
+          },
+      ]
+  },
+  {
+    path: '/',
     name: 'Home',
     component: Home
   },

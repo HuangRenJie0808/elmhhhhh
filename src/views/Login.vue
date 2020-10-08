@@ -79,14 +79,15 @@ export default {
       this.setCookie("cap", this.captcha_code, 2); // 验证码
       this.setCookie("SID", 100, 2); // 
       axios
-        .post("/api/v2/login", { // 跨域地址
+        .post("http://elm.cangdu.org/v2/login", { // 跨域地址
           username: this.username, // 账号参数
           password: this.password, // 密码参数
           captcha_code: this.captcha_code // 验证码参数
         })
         .then(res => {
           console.log(res);
-          if (res.data.id != 0) { // 验证跳转
+          if (res.data.id != 0) { // 验证跳转\
+          localStorage.setItem('user_id',res.data.id)
             this.$router.push("/?id="+res.data.id); // 跳转到首页home
           }
         });

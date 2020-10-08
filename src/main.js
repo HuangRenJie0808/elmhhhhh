@@ -5,7 +5,16 @@ import router from './router'
 import store from './store'
 import './plugins/vant.js'
 Vue.config.productionTip = false
-
+router.beforeEach((to, from, next) => {
+  if (to.name == 'Login') {
+    let id = localStorage.getItem('user_id')
+    if (id != null) {
+      next('/')
+    }
+    next()
+  }
+  next()
+})
 new Vue({
   router,
   store,

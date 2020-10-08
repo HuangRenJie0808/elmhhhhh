@@ -4,11 +4,11 @@
     <van-sticky>
       <div class="top" v-show="!flag">
         <p>ele.me</p>
-        <p v-show="id==0">
+        <p v-show="!id">
           <router-link tag="span" to="/login">登录</router-link>|
           <router-link tag="span" to="/">注册</router-link>
         </p>
-        <p v-show="id!=0"><van-icon name="manager-o" /></p>
+        <p v-show="id" @click="my"><van-icon name="manager-o" /></p>
       </div>
       <div class="top" @click="topTo" v-show="flag">点击回到顶部</div>
     </van-sticky>
@@ -58,9 +58,10 @@ export default {
       indexList: [],
       list: [],
       hots: [],
-      guessCity: [],
+      guessCity: '',
       lists: [],
-      flag: false,id:0
+      flag: false,
+      id:0
     };
   },
   // 计算属性
@@ -82,7 +83,7 @@ export default {
     topTo() {
       document.documentElement.scrollTop = 0;
     },
-    async cityCode() {
+    async cityCode() { // 异步请求操作
       // 列表
       let res = await citys("group");
       this.lists = res.data;
@@ -107,6 +108,10 @@ export default {
       this.lists = objKeySort(this.lists); //函数执行
       // 排序数组
       this.list.sort();
+    },
+    // 点击跳转到我的详情页
+    my(){
+      this.$router.push('/index/my?id='+this.id)
     }
   },
 
@@ -114,8 +119,7 @@ export default {
     // 组件实例创建完成，属性已绑定，但DOM还未生成，$ el属性还不存在
   },
   mounted() {
-    this.id=this.$route.query.id
-    console.log(this.id);
+    this.id=this.$route.query.id // 接受id判断显示图标
     // 请求接口
     this.cityCode();
     // 监听scroll事件
