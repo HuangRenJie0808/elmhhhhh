@@ -103,9 +103,9 @@ export default {
   // 组件状态值
   data() {
     return {
-      top: [],
+      top: JSON.parse(localStorage.getItem("val")),
       jiu: [],
-      shop: [],
+      shop:  [],
       value: 0
     };
   },
@@ -124,7 +124,7 @@ export default {
       .get("http://elm.cangdu.org/v2/pois/" + this.$route.query.geohash)
       .then(res => {
         console.log(res);
-        this.top = res.data;
+        // this.top = res.data;
       });
     axios.get("http://elm.cangdu.org/v2/index_entry").then(res => {
       console.log(res);

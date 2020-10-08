@@ -75,6 +75,7 @@ export default {
       this.detail = keyValue.data;
     },
     history(val) {
+      localStorage.setItem("val",JSON.stringify(val))
       let newArr = this.arr.some(item => {
         return item.name.includes(val.name);
       });
@@ -88,6 +89,7 @@ export default {
       }
       console.log(val)
       this.$router.push("/index/shouye?geohash="+val.geohash)
+
     }
   },
   /**
